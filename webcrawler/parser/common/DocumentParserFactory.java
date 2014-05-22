@@ -25,10 +25,10 @@ public class DocumentParserFactory {
      */
     public DocumentParser getDocumentParser(String type) 
         throws DocumentParserException {
-        if( "text/html".equalsIgnoreCase(type) ) {
+        if ("text/html".equalsIgnoreCase(type)) {
             return new HTMLDocumentParser();
         }
-        else if( "application/msword".equalsIgnoreCase(type) ) {
+        else if ("application/msword".equalsIgnoreCase(type)) {
             return new MSWordDocumentParser();
         }
         else {

@@ -46,7 +46,8 @@ public class BasicWebCrawler {
     
     public void addSeedUrls(List<String> seedUrls) {
         int seedUrlDepth = 0;
-        KnownUrlDB knownUrlsDB = crawlData.getKnownUrlsDB(); 
+        KnownUrlDB knownUrlsDB = crawlData.getKnownUrlsDB();
+
         for(String url : seedUrls) {
             knownUrlsDB.addNewUrl(url, seedUrlDepth);
         }

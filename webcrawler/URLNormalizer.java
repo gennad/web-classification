@@ -30,9 +30,11 @@ public class URLNormalizer {
      */
     public String normalizeUrl(String url) {
         String normalizedUrl = url;
+
         if( url.startsWith("file://") ) {
             normalizedUrl = normalizeFileUrl(url);
         }
+
         return normalizedUrl;
     }
     

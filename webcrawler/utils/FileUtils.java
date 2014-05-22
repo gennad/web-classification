@@ -17,15 +17,15 @@ public class FileUtils {
     }
     
     public static void prepareDir(File dir, boolean useExisting) throws IOException {
-        if( dir.exists() ) {
-            if( useExisting == false ) {
-                if( !FileUtils.deleteDir(dir) ) {
+        if (dir.exists()) {
+            if (useExisting == false) {
+                if (!FileUtils.deleteDir(dir)) {
                     throw new IOException("Failed to delete directory: '" + dir.getAbsolutePath() + "'");
                 }
             }
         }
-        if( !dir.exists() ) {
-            if( !dir.mkdir() ) {
+        if (!dir.exists()) {
+            if (!dir.mkdir()) {
                 throw new IOException("Failed to create directory: '" + dir.getAbsolutePath() + "'");
             }
         }
@@ -39,6 +39,7 @@ public class FileUtils {
      */
     public static boolean deleteDir(String dir) {
         File f = new File(dir);
+
         if( f.exists() && f.isDirectory() ) {
             return deleteDir(f);
         }
@@ -61,14 +62,16 @@ public class FileUtils {
         
         for(String filename : dir.list()) {
             boolean success = false;
+
             File f = new File(dir, filename);
+
             if( f.isDirectory() ) {
                 success = deleteDir(f);
             }
             else {
                 success = f.delete();
             }
-            if( !success ) {
+            if (!success) {
                 return success;
             }
         }
@@ -83,12 +86,12 @@ public class FileUtils {
      * @param filenamePrefix defines files that will be returned.
      * @return files with names that start with specified prefix. 
      */
-    public static File[] findMatchingFiles(final File directory, 
-            final String filenamePrefix) {
-        return directory.listFiles( new FilenameFilter() {
+    public static File[] findMatchingFiles(final File directory,  final String filenamePrefix) {
+        return directory.listFiles(new FilenameFilter() {
             public boolean accept(File dir, String name) {
                 return name.startsWith(filenamePrefix);
-            } });
+            }
+        });
     }
     
 }

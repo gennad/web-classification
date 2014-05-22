@@ -21,12 +21,15 @@ class CompositeFilter implements NodeFilter {
     
     public short acceptNode(Node n) {
         short result = NodeFilter.FILTER_SKIP;
-        for( NodeFilter f : acceptFilters ) {
+
+        for (NodeFilter f : acceptFilters) {
             result = f.acceptNode(n);
-            if( result == NodeFilter.FILTER_ACCEPT ) {
+
+            if (result == NodeFilter.FILTER_ACCEPT) {
                 break;
             }
         }
+
         return result;
     }
     

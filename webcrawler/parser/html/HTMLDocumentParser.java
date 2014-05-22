@@ -34,8 +34,7 @@ import org.xml.sax.SAXException;
  */
 public class HTMLDocumentParser implements DocumentParser {
 
-    public ProcessedDocument parse(Reader reader) 
-        throws HTMLDocumentParserException {
+    public ProcessedDocument parse(Reader reader) throws HTMLDocumentParserException {
         
         ProcessedDocument htmlDoc = new ProcessedDocument();
         htmlDoc.setDocumentType(ProcessedDocument.DOCUMENT_TYPE_HTML);
@@ -44,25 +43,25 @@ public class HTMLDocumentParser implements DocumentParser {
         InputSource inputSource = new InputSource();
         inputSource.setCharacterStream(reader);
         parseHTML(htmlDoc, inputSource);
+
         return htmlDoc;
     }
     
-    public ProcessedDocument parse(FetchedDocument doc) 
-        throws HTMLDocumentParserException {
+    public ProcessedDocument parse(FetchedDocument doc) throws HTMLDocumentParserException {
         ProcessedDocument htmlDoc = new ProcessedDocument();
         htmlDoc.setDocumentType(ProcessedDocument.DOCUMENT_TYPE_HTML);
         htmlDoc.setDocumentId(doc.getDocumentId());
         htmlDoc.setDocumentURL(doc.getDocumentURL());
         String documentCharset = doc.getContentCharset();
         InputStream contentBytes = new ByteArrayInputStream(doc.getDocumentContent());
+
         try {
             /* 
              * Up to this point document content was treated as byte array.
              * Here we convert byte array into character based stream. 
              * Processed document will be stored using UTF-8 encoding.
              */
-            InputStreamReader characterStream = 
-                new InputStreamReader(contentBytes, documentCharset); 
+            InputStreamReader characterStream = new InputStreamReader(contentBytes, documentCharset);
             InputSource inputSource = new InputSource();
             inputSource.setCharacterStream(characterStream);
             parseHTML(htmlDoc, inputSource);
@@ -170,7 +169,7 @@ public class HTMLDocumentParser implements DocumentParser {
     
     
     private String getTitle(Node node) {
-        if( node == null ) {
+        if (node == null) {
             return "";
         }
         
@@ -178,9 +177,10 @@ public class HTMLDocumentParser implements DocumentParser {
         org.w3c.dom.Document doc = getDocumentNode(node);
         NodeList nodeList = doc.getElementsByTagName("title");
         Node matchedNode = nodeList.item(0);
-        if( matchedNode != null ) {
+
+        if (matchedNode != null) {
             String title = matchedNode.getTextContent();
-            if( title != null ) {
+            if (title != null) {
                 cleanTitle = title.replaceAll("[\r\n\t]", " ").trim();
             }
         }
@@ -191,19 +191,23 @@ public class HTMLDocumentParser implements DocumentParser {
     
     
     private String getRobotsMeta(Node node) {
-        if( node == null ) {
+        if (node == null) {
             return null;
         }
         org.w3c.dom.Document doc = getDocumentNode(node);
         NodeList nodeList = doc.getElementsByTagName("meta");
-        if( nodeList != null ) {
-            for(int i = 0, n = nodeList.getLength(); i < n; i++) {
+
+        if (nodeList != null) {
+            for (int i = 0, n = nodeList.getLength(); i < n; i++) {
                 Node currentNode = nodeList.item(i);
+
                 NamedNodeMap attrs = currentNode.getAttributes();
-                if( attrs != null ) {
+
+                if (attrs != null) {
                     Node contentNode = attrs.getNamedItem("content");
                     Node nameNode = attrs.getNamedItem("name");
-                    if(  nameNode != null && contentNode != null) {
+
+                    if (nameNode != null && contentNode != null) {
                         if("ROBOTS".equalsIgnoreCase(nameNode.getNodeValue())) {
                             if( contentNode != null ) {
                                 return contentNode.getNodeValue();
@@ -218,7 +222,7 @@ public class HTMLDocumentParser implements DocumentParser {
     
     
     private String getText(Node node) {
-        if( node == null ) {
+        if (node == null) {
             return "";
         }
         
@@ -230,19 +234,21 @@ public class HTMLDocumentParser implements DocumentParser {
             traversable.createNodeIterator(node, whatToShow, null, true);
         
         StringBuffer text = new StringBuffer();
+
         Node currentNode = null;
-        while( (currentNode = nodeIterator.nextNode()) != null ) {
+
+        while ((currentNode = nodeIterator.nextNode()) != null) {
             text.append(currentNode.getNodeValue());
         }
         return text.toString();
     }
     
     private org.w3c.dom.Document getDocumentNode(Node node) {
-        if( node == null ) {
+        if (node == null) {
             return null;
         }
         
-        if( Node.DOCUMENT_NODE == node.getNodeType() ) {
+        if (Node.DOCUMENT_NODE == node.getNodeType()) {
             return (org.w3c.dom.Document) node;
         }
         else {
@@ -255,7 +261,7 @@ public class HTMLDocumentParser implements DocumentParser {
 
         // Check <META name="robots" content="..."/>
         String robotsMeta = getRobotsMeta(node);
-        if( robotsMeta != null && robotsMeta.toLowerCase().indexOf("nofollow") > -1 ) {
+        if (robotsMeta != null && robotsMeta.toLowerCase().indexOf("nofollow") > -1) {
             noFollow = true;
         }
         
@@ -263,32 +269,37 @@ public class HTMLDocumentParser implements DocumentParser {
     }
     
     private List<Outlink> extractLinks(Node node, String docUrl, String baseUrl) {
-        if( isNoFollowForDocument(node) ) {
+        if (isNoFollowForDocument(node)) {
             return new ArrayList<Outlink>();
         }
         
         org.w3c.dom.Document doc = getDocumentNode(node);
         DocumentTraversal traversableDoc = (DocumentTraversal) doc;
         NodeFilter linkFilter = getLinkNodeFilter();
-        NodeIterator iterator = traversableDoc.createNodeIterator(node, 
+        NodeIterator iterator = traversableDoc.createNodeIterator(
+                node,
                 NodeFilter.SHOW_ELEMENT, 
                 linkFilter, 
-                true);
+                true
+        );
         Node currentNode = null;
         
         List<Outlink> outlinks = new ArrayList<Outlink>();
         
-        while( (currentNode = iterator.nextNode()) != null ) {
+        while ((currentNode = iterator.nextNode()) != null) {
             String href = currentNode.getAttributes().
                 getNamedItem("href").getNodeValue();
+
             boolean nofollow = isNoFollowPresent(currentNode);
-            if( nofollow == false ) {
+
+            if (nofollow == false) {
                 if( "BASE".equalsIgnoreCase(node.getNodeName()) ) {
                     // ignore this link
                 }
                 else {
                     String url = buildUrl(href, baseUrl, docUrl);
-                    if( url != null ) {
+
+                    if (url != null) {
                         String anchorText = getAnchorText(currentNode);
                         Outlink link = new Outlink(url, anchorText);
                         outlinks.add(link);
@@ -308,12 +319,13 @@ public class HTMLDocumentParser implements DocumentParser {
      */
     private String extractProtocol(String url) {
         String protocol = null;
-        if( url.startsWith("mailto:") ) {
+        if (url.startsWith("mailto:")) {
             protocol = "mailto";
         }
         else {
             int i = url.indexOf("://");
-            if( i > -1) {
+
+            if (i > -1) {
                 protocol = url.substring(0, i);
             }
         }
@@ -323,8 +335,9 @@ public class HTMLDocumentParser implements DocumentParser {
     private String extractParent(String url) {
         String parent = url;
         int i = url.lastIndexOf("/");
-        if( i > -1) {
-            parent = url.substring(0, i + "/".length() );
+
+        if (i > -1) {
+            parent = url.substring(0, i + "/".length());
         }
         return parent;
     }
@@ -346,10 +359,11 @@ public class HTMLDocumentParser implements DocumentParser {
         else if( baseUrl != null ) {
             url = baseUrl + href;
         }
-        else if( href.startsWith("/") ) {
+        else if (href.startsWith("/")) {
             try {
                 URL docUrl = new URL(documentUrl);
-                if( docUrl.getPort() == -1 ) {
+
+                if (docUrl.getPort() == -1) {
                     url = docUrl.getProtocol() + "://" + docUrl.getHost() + href;
                 }
                 else {
@@ -371,9 +385,11 @@ public class HTMLDocumentParser implements DocumentParser {
     private String getAnchorText(Node currentNode) {
         String text = getText(currentNode);
         String cleanText = null;
-        if( text != null ) {
+
+        if (text != null) {
             cleanText = text.replaceAll("[\r\n\t]", " ").trim();
         }
+
         return cleanText;
     }
     
@@ -383,12 +399,14 @@ public class HTMLDocumentParser implements DocumentParser {
     private boolean isNoFollowPresent(Node currentNode) {
         Node relAttr = currentNode.getAttributes().getNamedItem("rel");
         boolean nofollow = false;
-        if( relAttr != null ) {
+
+        if (relAttr != null) {
             String relAttrValue = relAttr.getNodeValue();
-            if( "nofollow".equalsIgnoreCase(relAttrValue)) {
+            if ("nofollow".equalsIgnoreCase(relAttrValue)) {
                 nofollow = true;
             }
-        }       
+        }
+
         return nofollow;
     }
     

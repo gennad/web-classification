@@ -19,10 +19,11 @@ class ElementNodeFilter implements NodeFilter {
     
     public short acceptNode(Node n) {
         short result = FILTER_SKIP;
-        if( Node.ELEMENT_NODE == n.getNodeType() ) {
+        if (Node.ELEMENT_NODE == n.getNodeType()) {
             Element e = (Element)n;
-            if( e.getNodeName().equalsIgnoreCase(elementName) ) {
-                if( e.getAttributeNode(attributeName) != null ) {
+
+            if (e.getNodeName().equalsIgnoreCase(elementName)) {
+                if (e.getAttributeNode(attributeName) != null) {
                     result = FILTER_ACCEPT;
                 }
             }

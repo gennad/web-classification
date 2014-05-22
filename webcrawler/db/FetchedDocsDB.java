@@ -61,14 +61,17 @@ public class FetchedDocsDB {
     
     private void init(boolean keepExistingData) {
         groupFiles = new HashMap<String, File>();
-        if( rootDirFile.exists() ) {
-            if( keepExistingData ) {
+
+        if (rootDirFile.exists()) {
+            if(keepExistingData) {
                 /* Load information about existing groups */
                 File[] existingFileGroups = 
-                    rootDirFile.listFiles( new FileFilter() {
+                    rootDirFile.listFiles(new FileFilter() {
                         public boolean accept(File f) {
                             return f.isDirectory();
-                        } });
+                        }
+                    });
+
                 for(File groupDirFile : existingFileGroups) {
                     groupFiles.put(groupDirFile.getName(), groupDirFile);
                 }
@@ -95,9 +98,11 @@ public class FetchedDocsDB {
     // document id contains the set encoded in it
     public FetchedDocument getDocument(String documentId) {
         File dataFile = getDataFile(documentId);
-        if( !dataFile.exists() ) {
+
+        if(!dataFile.exists()) {
             throw new RuntimeException("Document with id: '" + documentId + "' doesn't exist.");
         }
+
         FetchedDocument doc = new FetchedDocument();
         doc.setDocumentId(documentId);        
 
@@ -105,9 +110,11 @@ public class FetchedDocsDB {
         doc.setDocumentContent(data);
 
         File propsFile = getPropertiesFile(documentId);
-        if( !propsFile.exists() ) {
+
+        if(!propsFile.exists()) {
             throw new RuntimeException("Properties for document with id: '" + documentId + "' don't exist.");            
         }
+
         readMetaData(propsFile, doc);
         
         return doc;
@@ -117,22 +124,26 @@ public class FetchedDocsDB {
     private void readMetaData(File f, FetchedDocument doc) {
         try {
             InputStreamReader is = new InputStreamReader(
-                    new FileInputStream(f), "UTF-8");
+                    new FileInputStream(f), "UTF-8"
+            );
             BufferedReader reader = new BufferedReader(is);
+
             Map<String, String> metadata = new HashMap<String, String>();
             String line = null;
-            while( (line = reader.readLine()) != null ) {
-                if( line.length() == 0 ) {
+
+            while ((line = reader.readLine()) != null) {
+                if(line.length() == 0) {
                     continue;
                 }
                 
                 String[] values = line.split(":", 2);
                 String key = values[0];
                 String value = values[1];
-                if( "url".equalsIgnoreCase(key) ) {
+
+                if ("url".equalsIgnoreCase(key)) {
                     doc.setDocumentURL(value);
                 }
-                else if( "host".equalsIgnoreCase(key) ) {
+                else if("host".equalsIgnoreCase(key)) {
                     // skip, do nothing
                 }
                 else if( "Content-Type".equalsIgnoreCase(key) ) {
@@ -182,7 +193,8 @@ public class FetchedDocsDB {
     private void saveMetadata(File f, FetchedDocument doc) {
         try {
             OutputStreamWriter ow = new OutputStreamWriter(
-                    new FileOutputStream(f), "UTF-8");
+                    new FileOutputStream(f), "UTF-8"
+            );
             BufferedWriter bw = new BufferedWriter(ow);
             
             writeProperty(bw, "url", doc.getDocumentURL());
@@ -190,7 +202,7 @@ public class FetchedDocsDB {
             writeProperty(bw, "Charset", doc.getContentCharset());
 
             Map<String, String> metadata = doc.getDocumentMetadata();
-            for( String key : metadata.keySet() ) {
+            for (String key : metadata.keySet()) {
                 writeProperty(bw, key, metadata.get(key));
             }
             bw.flush();
@@ -205,9 +217,11 @@ public class FetchedDocsDB {
         throws IOException {
         w.write(key);
         w.write(":");
-        if( value != null ) {
+
+        if (value != null) {
             w.write(value);
         }
+
         w.newLine();
     }
     
@@ -218,15 +232,16 @@ public class FetchedDocsDB {
             bout.write(content);
             bout.flush();
             bout.close();
-            }
-            catch(IOException e) {
-                throw new RuntimeException(e);
-            }
+        }
+        catch(IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<String> getDocumentIds() {
         List<String> documentIds = new ArrayList<String>();
-        for(File setFile : groupFiles.values() ) {
+
+        for (File setFile : groupFiles.values()) {
             documentIds.addAll(getDocumentIds(setFile));
         }
         return documentIds;
@@ -246,11 +261,13 @@ public class FetchedDocsDB {
                 else {
                     return false;
                 }
-            } });
+            }
+        });
         
         List<String> documentIds = new ArrayList<String>();
         String groupId = setFile.getName();
-        if( dataFiles != null ) {
+
+        if (dataFiles != null) {
             for(File f : dataFiles) {
                 String name = f.getName();
                 String itemId = name.substring(0, name.indexOf("."));
