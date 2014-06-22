@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="15b05f79-7b62-47ce-972b-34ab3ca3c58d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/commons-httpclient-3.1.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/nekohtml.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/tm-extractors-1.0.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/xercesImpl-2.8.1.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Runner.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/commons_httpclient_3_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/nekohtml.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/tm_extractors_0_4.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/tm_extractors_1_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/xercesImpl_2_8_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-classification.iml" afterPath="$PROJECT_DIR$/web-classification.iml" />
-    </list>
+    <list default="true" id="15b05f79-7b62-47ce-972b-34ab3ca3c58d" name="Default" comment="" />
     <ignored path="web-classification.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="15b05f79-7b62-47ce-972b-34ab3ca3c58d" time="1400773604148" ignored="false" />
@@ -91,7 +79,9 @@
         <entry file="file://$PROJECT_DIR$/webcrawler/parser/common/DocumentParserFactory.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="38" column="4" selection-start="1128" selection-end="1128" vertical-scroll-proportion="0.0">
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -100,7 +90,10 @@
         <entry file="file://$PROJECT_DIR$/webcrawler/parser/html/CompositeFilter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="21" column="8" selection-start="498" selection-end="498" vertical-scroll-proportion="0.0">
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#324#336#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -109,7 +102,9 @@
         <entry file="file://$PROJECT_DIR$/webcrawler/parser/html/ElementNodeFilter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="31" column="5" selection-start="931" selection-end="931" vertical-scroll-proportion="0.0">
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -276,6 +271,7 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
+    <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="dynamic.classpath" value="false" />
@@ -451,7 +447,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24978831" sideWeight="0.6703125" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3296875" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296875" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -576,21 +572,28 @@
     <entry file="file://$PROJECT_DIR$/webcrawler/parser/common/DocumentParserFactory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="38" column="4" selection-start="1128" selection-end="1128" vertical-scroll-proportion="0.0">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/webcrawler/parser/html/CompositeFilter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="21" column="8" selection-start="498" selection-end="498" vertical-scroll-proportion="0.0">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#324#336#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/webcrawler/parser/html/ElementNodeFilter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="31" column="5" selection-start="931" selection-end="931" vertical-scroll-proportion="0.0">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
