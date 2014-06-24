@@ -1,3 +1,5 @@
+# see http://www.python-course.eu/text_classification_python.php
+
 import re, os
 
 
